@@ -1,0 +1,42 @@
+// Import library functions for theme creation.
+@import '~@angular/material/theming';
+
+// Include non-theme styles for core.
+@include mat-core();
+
+
+mat-chip.invisible-chip {
+    background-color: transparent;
+}
+
+mat-chip.selectable-chip {
+    cursor: pointer;
+}
+
+.message-container {
+    margin: 0.25em;
+}
+
+.topic-container {
+    margin-bottom: 0.125em;
+}
+
+.topic-title {
+    padding: 0.25em;
+}
+
+.color-1 {
+    background-color: mat-color($mat-grey, 200, 1.0);
+}
+
+.color-1-b {
+    background-color: mat-color($mat-grey, 100, 1.0);
+}
+
+.color-2 {
+    background-color: mat-color($mat-indigo, 200, 1.0);
+}
+
+.color-2-b {
+    background-color: mat-color($mat-indigo, 100, 1.0);
+}

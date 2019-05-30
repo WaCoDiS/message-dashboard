@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+  jackson:
+    default-property-inclusion: NON_NULL
+  cloud:
+    config:
+      url: http://localhost:8888
+    stream:
+      bindings:
+        new-process-result:
+          destination: wacodis.test.processresult.new
+          binder: wacodis_rabbit
+          group: jobStatusConsumers
+        new-product:
+          destination: wacodis.test.product.new
+          binder: wacodis_rabbit
+          content-type: application/json
+      binders:
+        wacodis_rabbit:
+          type: rabbit
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: rabbitmq
+    password: rabbitmq
