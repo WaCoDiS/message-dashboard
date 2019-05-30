@@ -2,17 +2,15 @@
 package de.wacodis.messagedashboard.streams;
 
 import de.wacodis.messagedashboard.NewMessageHandler;
+import de.wacodis.messagedashboard.model.AbstractDataEnvelope;
 import de.wacodis.messagedashboard.model.ProductDescription;
-import de.wacodis.messagedashboard.model.WacodisProductDataEnvelope;
-import java.util.Collections;
+import de.wacodis.messagedashboard.model.WacodisJobDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.scheduling.annotation.Async;
 
 /**
  *
@@ -24,38 +22,42 @@ public class StreamBinder implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(StreamBinder.class.getName());
     
     @Autowired
-    private StreamChannels channels;
-    
-    @Autowired
     private NewMessageHandler handler;
     
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        new Thread(() -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException ex) {
-                LOG.warn(ex.getMessage());
-            }
-            ProductDescription dummyResult = new ProductDescription();
-            dummyResult.setProductCollection("EO:WACODIS:DAT:LAND-COVER-CLASSIFICATION");
-            dummyResult.setJobIdentifier("f1ba2902-8164-4c45-820a-cacd5bc5bf62");
-            dummyResult.setOutputIdentifiers(Collections.singletonList("result"));
-            onNewProcessResult(dummyResult);
-        }).start();
     }
     
-    @Async
-    public void publishNewProductAvailable(WacodisProductDataEnvelope p) {
-        channels.publishNewProduct().send(MessageBuilder.withPayload(p).build());
-        LOG.info("Published a new product availability: {}", p);
+    
+    @StreamListener(StreamChannels.JOBS_NEW)
+    public void receiveNewJob(WacodisJobDefinition job) {
+        this.handler.publishWebSocket("/topic/wacodis.prod.jobs.new", job);
+    }
+ 
+    @StreamListener(StreamChannels.JOBS_STATUS)
+    public void receiveJobStatus(WacodisJobDefinition job) {
+        this.handler.publishWebSocket("/topic/wacodis.prod.jobs.status", job);
     }
     
-    @StreamListener(StreamChannels.NEW_PROCESS_RESULT_AVAILABLE)
-    public void onNewProcessResult(ProductDescription r) {
-        LOG.info("New process result available: {}", r);
-        this.handler.handleNewProduct(r);
+    @StreamListener(StreamChannels.TOOLS_EXECUTE)
+    public void receiveToolExecuted(Object job) {
+        this.handler.publishWebSocket("/topic/wacodis.prod.tools.execute", job);
+    }
+    
+    @StreamListener(StreamChannels.TOOLS_FINISHED)
+    public void receiveToolFinished(ProductDescription job) {
+        this.handler.publishWebSocket("/topic/wacodis.prod.tools.finished", job);
+    }
+    
+    @StreamListener(StreamChannels.DATA_AVAILABLE)
+    public void receiveDataAvailable(AbstractDataEnvelope job) {
+        this.handler.publishWebSocket("/topic/wacodis.prod.data.available", job);
+    }
+    
+    @StreamListener(StreamChannels.DATA_ACCESSIBLE)
+    public void receiveDataAccessible(AbstractDataEnvelope job) {
+        this.handler.publishWebSocket("/topic/wacodis.prod.data.accessible", job);
     }
     
 }

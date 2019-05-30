@@ -1,42 +1,51 @@
 <div class="message-container">
-    <mat-card>
-      <mat-card-title>Timeline</mat-card-title>
-      <mat-card-content>
-          <div *ngFor="let t of topics" class="topic-container">
-    
-              <div fxLayout="row" class="message-container" class="color-1">
-                <div fxFlex class="topic-title color-1-b">{{t}}</div>
-                <div fxFlex *ngFor="let msg of topicMessages[t]; let i = index">
-          
-                  <mat-chip-list *ngIf="msg.date && msg.message">
-                    <mat-chip (click)="selectMessage(t, i)" class="selectable-chip">#{{msg.messageNumber}}</mat-chip>
-                  </mat-chip-list>
-          
-                  <mat-chip-list *ngIf="!msg.date || !msg.message">
-                    <mat-chip class="invisible-chip">&nbsp;</mat-chip>
-                  </mat-chip-list>
-            
-                </div>
-              </div>
-            </div>
-            <div class="time-axis-container" class="color-2">
-                <div fxFlex class="topic-title color-2-b">Time</div>
-                <div fxFlex *ngFor="let ts of timeStamps">
-                  {{ts}}
-                </div>
-            </div>
-      </mat-card-content>
-    </mat-card>
-</div>
+  <mat-tab-group>
+    <mat-tab label="Timeline">
+      <div *ngFor="let t of topics" class="topic-container">
 
-<div class="selected-message">
-  <mat-card>
-    <mat-card-title *ngIf="selectedMessage">Topic: {{selectedMessage.topic}}</mat-card-title>
-    <mat-card-content *ngIf="!selectedMessage">(click a message to display details)</mat-card-content>
-    <mat-card-content *ngIf="selectedMessage">
-        <h4>{{selectedMessage.date}}</h4>
-        <mat-divider></mat-divider>
-        <pre><code [highlight]="stringify(selectedMessage.message)"></code></pre>
-    </mat-card-content>
-  </mat-card>
+        <div fxLayout="row" class="message-container" class="color-1">
+          <div fxFlex class="topic-title color-1-b">{{t.split('.').join(' ')}}</div>
+          <div fxFlex *ngFor="let msg of topicMessages[t]; let i = index">
+
+            <mat-chip-list *ngIf="msg.date && msg.message">
+              <mat-chip (click)="selectMessage(t, i)" class="selectable-chip">#{{msg.messageNumber}}</mat-chip>
+            </mat-chip-list>
+
+            <mat-chip-list *ngIf="!msg.date || !msg.message">
+              <mat-chip class="invisible-chip">&nbsp;</mat-chip>
+            </mat-chip-list>
+
+          </div>
+        </div>
+      </div>
+      <div class="time-axis-container" class="color-2">
+        <div fxFlex class="topic-title color-2-b">Time</div>
+        <div fxFlex *ngFor="let ts of timeStamps">
+          {{ts}}
+        </div>
+      </div>
+      <div class="selected-message">
+        <mat-card>
+          <mat-card-title *ngIf="selectedMessage">Message #{{selectedMessage.messageNumber}} / Topic: {{selectedMessage.topic}}</mat-card-title>
+          <mat-card-content *ngIf="!selectedMessage">(click a message to display details)</mat-card-content>
+          <mat-card-content *ngIf="selectedMessage">
+            <h4>{{selectedMessage.date}}</h4>
+            <mat-divider></mat-divider>
+            <pre><code [highlight]="stringify(selectedMessage.message)"></code></pre>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <mat-tab label="Archive of received messages">
+      <mat-card *ngFor="let m of messageArchive">
+        <mat-card-title>Message #{{m.messageNumber}} / Topic: {{m.topic}}</mat-card-title>
+        <mat-card-content>
+          <h4>{{m.date}}</h4>
+          <mat-divider></mat-divider>
+          <pre><code [highlight]="stringify(m.message)"></code></pre>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+
 </div>

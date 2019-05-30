@@ -44,6 +44,8 @@ export class MessageViewComponent implements OnInit {
       this.socketClient.onMessage(t).subscribe((msg: any) => {
         console.log('received msg on topic', t, msg);
 
+        let archiveCandidates: MessageContainer[] = [];
+
         this.topics.forEach(innerTopic => {
           if (t === innerTopic) {
             const newMsg = { date: new Date(), topic: innerTopic, messageNumber: ++this.messageCount, message: msg};
@@ -55,9 +57,17 @@ export class MessageViewComponent implements OnInit {
           }
 
           // ensure the length of maxLength
-          this.topicMessages[innerTopic].shift();
+          const archiveCandidate = this.topicMessages[innerTopic].shift();
+          if (archiveCandidate.messageNumber > 0) {
+            archiveCandidates.push(archiveCandidate);
+          }
         });
 
+        archiveCandidates = archiveCandidates.sort((a, b) => {
+          return a.messageNumber - b.messageNumber;
+        });
+
+        archiveCandidates.forEach(ac => this.messageArchive.unshift(ac));
       });
     });
   }

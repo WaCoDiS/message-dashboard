@@ -9,7 +9,8 @@ import {
   MatChipsModule,
   MatDividerModule,
   MatCardModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTabsModule
 } from '@angular/material';
 
 import {PlatformModule} from '@angular/cdk/platform';
@@ -51,6 +52,7 @@ export function hljsLanguages() {
     MatDividerModule,
     MatCardModule,
     MatToolbarModule,
+    MatTabsModule,
     ObserversModule,
     PlatformModule,
     BrowserAnimationsModule,

@@ -12,13 +12,29 @@ import org.springframework.messaging.SubscribableChannel;
  */
 public interface StreamChannels {
     
-    String NEW_PROCESS_RESULT_AVAILABLE = "new-process-result";
-    String NEW_PRODUCT_AVAILABLE = "new-product";
+    String JOBS_NEW = "jobs-new";
+    String JOBS_STATUS = "jobs-status";
+    String TOOLS_EXECUTE = "tools-execute";
+    String TOOLS_FINISHED = "tools-finished";
+    String DATA_AVAILABLE = "data-available";
+    String DATA_ACCESSIBLE = "data-accessible";
  
-    @Input(NEW_PROCESS_RESULT_AVAILABLE)
-    SubscribableChannel receiveNewProcessResult();
+    @Input(JOBS_NEW)
+    SubscribableChannel receiveNewJob();
  
-    @Output(NEW_PRODUCT_AVAILABLE)
-    MessageChannel publishNewProduct();
+    @Input(JOBS_STATUS)
+    SubscribableChannel receiveJobStatus();
+    
+    @Input(TOOLS_EXECUTE)
+    SubscribableChannel receiveToolExecuted();
+    
+    @Input(TOOLS_FINISHED)
+    SubscribableChannel receiveToolFinished();
+    
+    @Input(DATA_AVAILABLE)
+    SubscribableChannel receiveDataAvailable();
+    
+    @Input(DATA_ACCESSIBLE)
+    SubscribableChannel receiveDataAccessible();
  
 }

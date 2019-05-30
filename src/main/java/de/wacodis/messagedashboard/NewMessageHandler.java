@@ -8,10 +8,8 @@ package de.wacodis.messagedashboard;
 import de.wacodis.messagedashboard.model.AbstractDataEnvelope;
 import de.wacodis.messagedashboard.model.CopernicusDataEnvelope;
 import de.wacodis.messagedashboard.model.ProductDescription;
-import de.wacodis.messagedashboard.streams.StreamBinder;
 import java.util.Random;
 import java.util.UUID;
-import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -29,23 +27,20 @@ public class NewMessageHandler implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(NewMessageHandler.class);
     
     @Autowired
-    private StreamBinder streams;
-    
-    @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
     
     @Override
     public void afterPropertiesSet() throws Exception {
-        new Thread(() -> {
-            for (int i = 0; i < 100000; i++) {
-                try {
-                    Thread.sleep(5000);
-                    this.dummyEnvelope();
-                } catch (Exception ex) {
-                    java.util.logging.Logger.getLogger(NewMessageHandler.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }).start();
+//        new Thread(() -> {
+//            for (int i = 0; i < 100000; i++) {
+//                try {
+//                    Thread.sleep(5000);
+//                    this.dummyEnvelope();
+//                } catch (Exception ex) {
+//                    java.util.logging.Logger.getLogger(NewMessageHandler.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        }).start();
     }
     
     public void handleNewProduct(ProductDescription r) {
@@ -68,6 +63,11 @@ public class NewMessageHandler implements InitializingBean {
         this.simpMessagingTemplate.convertAndSend(
                 targetTopics[rand.nextInt(targetTopics.length)],
                 env);
+    }
+    
+    public void publishWebSocket(String topic, Object msg) {
+        this.simpMessagingTemplate.convertAndSend(topic, msg);
+        LOG.debug("Published message on topic {}", topic);
     }
     
 }

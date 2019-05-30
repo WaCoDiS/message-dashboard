@@ -6,11 +6,12 @@ export const environment = {
   production: false,
   api: 'http://localhost:8080/gs-guide-websocket',
   topics: [
-    '/topic/new-job',
-    '/topic/data-envelope',
-    '/topic/process-execution',
-    '/topic/new-process-result',
-    '/topic/new-product'
+    '/topic/wacodis.prod.jobs.new',
+    '/topic/wacodis.prod.jobs.status',
+    '/topic/wacodis.prod.tools.execute',
+    '/topic/wacodis.prod.tools.finished',
+    '/topic/wacodis.prod.data.available',
+    '/topic/wacodis.prod.data.accessible'
   ]
 };
 
