@@ -1,8 +1,7 @@
-# WaCoDiS Product Listener
+# WaCoDiS Message Dashboard
 
-Spring-boot based application that listens on a RabbitMQ to receive
-messages whenever a WPS process is finished. Ingests the process result
-then via a python script.
+Spring-boot based application and Angular frontend that listens on RabbitMQ to receive
+all messages within the WaCoDiS system.
 
 # License
 
