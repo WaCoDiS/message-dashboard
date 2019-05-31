@@ -3,7 +3,10 @@ services:
   message-dashboard:
     build:
       context: .
-    image: registry.wacodis.demo.52north.org/message-dashboard:2019-05-30
+    image: registry.wacodis.demo.52north.org/message-dashboard:2019-05-31
     network_mode: "host"
     ports:
       - 8080:8080
+    environment:
+      - spring.rabbitmq.host=wacodis.demo.52north.org
+      - spring.rabbitmq.password=wacojo2018

@@ -12,7 +12,7 @@ RUN cd /tmp/ui && npm install --unsafe-perm
 RUN npm install -g @angular/cli@7.3.8
 
 COPY ./ui/ /tmp/ui
-RUN cd /tmp/ui && ng build --prod --base-href /
+RUN cd /tmp/ui && ng build --prod --base-href /message-dashboard/
 
 # ---- Base maven ----
 FROM maven:3.5-jdk-8-slim AS base

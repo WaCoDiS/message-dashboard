@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketClientService } from '../socket-client.service';
 import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 export class MessageContainer {
   date: Date;
@@ -24,7 +25,7 @@ export class MessageViewComponent implements OnInit {
   messageArchive: MessageContainer[] = [];
   selectedMessage: MessageContainer;
 
-  constructor(private socketClient: SocketClientService) { }
+  constructor(private socketClient: SocketClientService, private http: HttpClient) { }
 
   ngOnInit() {
     this.topics = environment.topics;
@@ -32,6 +33,8 @@ export class MessageViewComponent implements OnInit {
     for (let i = 0; i < 10; i++) {
       this.timeStamps.push('');
     }
+
+    this.retrieveArchivedMessages();
 
     this.topics.forEach(t => {
       this.topicMessages[t] = [];
@@ -44,30 +47,48 @@ export class MessageViewComponent implements OnInit {
       this.socketClient.onMessage(t).subscribe((msg: any) => {
         console.log('received msg on topic', t, msg);
 
-        let archiveCandidates: MessageContainer[] = [];
+        const newMsg = { date: new Date(), topic: t, messageNumber: ++this.messageCount, message: msg} as MessageContainer;
+        this.storeMessage(t, newMsg);
+      });
+    });
+  }
 
-        this.topics.forEach(innerTopic => {
-          if (t === innerTopic) {
-            const newMsg = { date: new Date(), topic: innerTopic, messageNumber: ++this.messageCount, message: msg};
-            this.topicMessages[innerTopic].push(newMsg);
-            this.timeStamps.push(newMsg.date.toLocaleTimeString());
-            this.timeStamps.shift();
-          } else {
-            this.topicMessages[innerTopic].push({ date: null, topic: null, messageNumber: 0, message: null });
+  storeMessage(t: string, newMsg: MessageContainer): any {
+    let archiveCandidates: MessageContainer[] = [];
+
+    this.topics.forEach(innerTopic => {
+      if (t === innerTopic) {
+        this.topicMessages[innerTopic].push(newMsg);
+        this.timeStamps.push(newMsg.date.toLocaleTimeString());
+        this.timeStamps.shift();
+      } else {
+        this.topicMessages[innerTopic].push({ date: null, topic: null, messageNumber: 0, message: null });
+      }
+
+      // ensure the length of maxLength
+      const archiveCandidate = this.topicMessages[innerTopic].shift();
+      if (archiveCandidate.messageNumber > 0) {
+        archiveCandidates.push(archiveCandidate);
+      }
+    });
+
+    archiveCandidates = archiveCandidates.sort((a, b) => {
+      return a.messageNumber - b.messageNumber;
+    });
+
+    archiveCandidates.forEach(ac => this.messageArchive.unshift(ac));
+  }
+
+  retrieveArchivedMessages(): any {
+    this.http.get<MessageContainer[]>(environment.archiveUrl).subscribe(msgs => {
+      msgs.forEach(m => {
+        if (this.topics.indexOf(m.topic) >= 0) {
+          if (typeof(m.date) === 'string') {
+            m.date = new Date(m.date);
           }
-
-          // ensure the length of maxLength
-          const archiveCandidate = this.topicMessages[innerTopic].shift();
-          if (archiveCandidate.messageNumber > 0) {
-            archiveCandidates.push(archiveCandidate);
-          }
-        });
-
-        archiveCandidates = archiveCandidates.sort((a, b) => {
-          return a.messageNumber - b.messageNumber;
-        });
-
-        archiveCandidates.forEach(ac => this.messageArchive.unshift(ac));
+          m.messageNumber = ++this.messageCount;
+          this.storeMessage(m.topic, m);
+        }
       });
     });
   }

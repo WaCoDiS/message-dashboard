@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   api: 'http://localhost:8080/gs-guide-websocket',
+  archiveUrl: 'http://localhost:8080/archive',
   topics: [
     '/topic/wacodis.prod.jobs.new',
     '/topic/wacodis.prod.jobs.status',

@@ -29,6 +29,9 @@ public class NewMessageHandler implements InitializingBean {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
     
+    @Autowired
+    private MessageArchiveController archive;
+    
     @Override
     public void afterPropertiesSet() throws Exception {
 //        new Thread(() -> {
@@ -67,6 +70,7 @@ public class NewMessageHandler implements InitializingBean {
     
     public void publishWebSocket(String topic, Object msg) {
         this.simpMessagingTemplate.convertAndSend(topic, msg);
+        this.archive.storeMessage(topic, msg);
         LOG.debug("Published message on topic {}", topic);
     }
     

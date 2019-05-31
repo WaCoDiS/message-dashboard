@@ -26,6 +26,7 @@ import json from 'highlight.js/lib/languages/json';
 import { AppComponent } from './app.component';
 import { SocketClientService } from './socket-client.service';
 import { MessageViewComponent } from './message-view/message-view.component';
+import { HttpClientModule } from '@angular/common/http';
 
 /**
  * Import every language you wish to highlight here
@@ -56,6 +57,7 @@ export function hljsLanguages() {
     ObserversModule,
     PlatformModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FormsModule,
     FlexLayoutModule,
     HighlightModule.forRoot({
