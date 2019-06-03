@@ -40,7 +40,7 @@
       <mat-form-field>
         <mat-label>Filter by topic</mat-label>
         <mat-select [(value)]="selectedTopic">
-          <mat-option [value]="all">all</mat-option>
+          <mat-option value="all">all</mat-option>
           <mat-option *ngFor="let t of topics" [value]="t">{{t}}</mat-option>
         </mat-select>
       </mat-form-field>
