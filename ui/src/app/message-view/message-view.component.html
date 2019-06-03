@@ -37,13 +37,25 @@
       </div>
     </mat-tab>
     <mat-tab label="Archive of received messages">
-      <mat-card *ngFor="let m of messageArchive">
+      <mat-form-field>
+        <mat-label>Filter by topic</mat-label>
+        <mat-select [(value)]="selectedTopic">
+          <mat-option [value]="all">all</mat-option>
+          <mat-option *ngFor="let t of topics" [value]="t">{{t}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+          
+      <mat-card *ngFor="let m of (messageArchive | filteredTopics: selectedTopic)">
         <mat-card-title>Message #{{m.messageNumber}} / Topic: {{m.topic}}</mat-card-title>
         <mat-card-content>
           <h4>{{m.date}}</h4>
           <mat-divider></mat-divider>
           <pre><code [highlight]="stringify(m.message)"></code></pre>
         </mat-card-content>
+      </mat-card>
+
+      <mat-card *ngIf="(messageArchive | filteredTopics: selectedTopic).length === 0">
+          No messages
       </mat-card>
     </mat-tab>
   </mat-tab-group>

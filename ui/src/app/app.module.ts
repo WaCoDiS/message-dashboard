@@ -10,7 +10,9 @@ import {
   MatDividerModule,
   MatCardModule,
   MatToolbarModule,
-  MatTabsModule
+  MatTabsModule,
+  MatSelectModule,
+  MatFormFieldModule
 } from '@angular/material';
 
 import {PlatformModule} from '@angular/cdk/platform';
@@ -25,7 +27,7 @@ import json from 'highlight.js/lib/languages/json';
 
 import { AppComponent } from './app.component';
 import { SocketClientService } from './socket-client.service';
-import { MessageViewComponent } from './message-view/message-view.component';
+import { MessageViewComponent, FilteredTopicsPipe } from './message-view/message-view.component';
 import { HttpClientModule } from '@angular/common/http';
 
 /**
@@ -41,7 +43,8 @@ export function hljsLanguages() {
 @NgModule({
   declarations: [
     AppComponent,
-    MessageViewComponent
+    MessageViewComponent,
+    FilteredTopicsPipe
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,8 @@ export function hljsLanguages() {
     MatChipsModule,
     MatDividerModule,
     MatCardModule,
+    MatSelectModule,
+    MatFormFieldModule,
     MatToolbarModule,
     MatTabsModule,
     ObserversModule,

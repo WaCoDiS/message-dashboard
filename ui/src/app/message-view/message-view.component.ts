@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { SocketClientService } from '../socket-client.service';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -8,6 +8,18 @@ export class MessageContainer {
   topic: string;
   messageNumber: number;
   message: any;
+}
+
+@Pipe({
+  name: 'filteredTopics',
+  pure: false
+})
+export class FilteredTopicsPipe implements PipeTransform {
+  transform(allMessages: MessageContainer[], selectedTopic: string) {
+    return allMessages.filter(m => {
+      return !selectedTopic || selectedTopic === undefined || selectedTopic === 'all' || selectedTopic === m.topic;
+    });
+  }
 }
 
 @Component({
@@ -20,6 +32,7 @@ export class MessageViewComponent implements OnInit {
   messageCount = 0;
   maxLength = 10;
   topics: string[];
+  selectedTopic: string;
   timeStamps: string[] = [];
   topicMessages: { [key: string]: MessageContainer[] } = {};
   messageArchive: MessageContainer[] = [];
