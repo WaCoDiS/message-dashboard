@@ -3,7 +3,7 @@ services:
   message-dashboard:
     build:
       context: .
-    image: registry.wacodis.demo.52north.org/message-dashboard:2019-05-31
+    image: registry.wacodis.demo.52north.org/message-dashboard:2019-06-18
     network_mode: "host"
     ports:
       - 8080:8080
