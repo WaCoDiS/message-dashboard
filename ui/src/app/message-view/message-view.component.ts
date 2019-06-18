@@ -72,7 +72,7 @@ export class MessageViewComponent implements OnInit {
     this.topics.forEach(innerTopic => {
       if (t === innerTopic) {
         this.topicMessages[innerTopic].push(newMsg);
-        this.timeStamps.push(newMsg.date.toISOString());
+        this.timeStamps.push(newMsg.date.toUTCString());
         this.timeStamps.shift();
       } else {
         this.topicMessages[innerTopic].push({ date: null, topic: null, messageNumber: 0, message: null });

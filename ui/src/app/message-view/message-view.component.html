@@ -3,9 +3,9 @@
     <mat-tab label="Timeline">
       <div *ngFor="let t of topics" class="topic-container">
 
-        <div fxLayout="row" class="message-container" class="color-1">
+        <div fxLayout="row" class="message-container">
           <div fxFlex class="topic-title color-1-b">{{t.split('.').join(' ')}}</div>
-          <div fxFlex *ngFor="let msg of topicMessages[t]; let i = index">
+          <div fxFlex *ngFor="let msg of topicMessages[t]; let i = index" class="one-message-container">
 
             <mat-chip-list *ngIf="msg.date && msg.message">
               <mat-chip (click)="selectMessage(t, i)" class="selectable-chip">#{{msg.messageNumber}}</mat-chip>

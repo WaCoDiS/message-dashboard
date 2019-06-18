@@ -28,7 +28,13 @@ mat-chip.selectable-chip {
 }
 
 .timestamp-container {
-    word-break: break-word;
+    padding: 0.25em;
+}
+
+.one-message-container {
+    margin-right: 2px;
+    background-color: red;
+    background-color: mat-color($mat-grey, 100, 1.0);
 }
 
 .color-1 {
