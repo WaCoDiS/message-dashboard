@@ -5,6 +5,8 @@ import de.wacodis.messagedashboard.NewMessageHandler;
 import de.wacodis.messagedashboard.model.AbstractDataEnvelope;
 import de.wacodis.messagedashboard.model.ProductDescription;
 import de.wacodis.messagedashboard.model.WacodisJobDefinition;
+import de.wacodis.messagedashboard.model.WacodisJobExecution;
+import de.wacodis.messagedashboard.model.WacodisJobFailed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -46,13 +48,18 @@ public class StreamBinder implements InitializingBean {
     }
     
     @StreamListener(StreamChannels.TOOLS_EXECUTE)
-    public void receiveToolExecuted(Object job) {
+    public void receiveToolExecuted(WacodisJobExecution job) {
         this.handler.publishWebSocket("/topic/wacodis.prod.tools.execute", job);
     }
     
     @StreamListener(StreamChannels.TOOLS_FINISHED)
     public void receiveToolFinished(ProductDescription job) {
         this.handler.publishWebSocket("/topic/wacodis.prod.tools.finished", job);
+    }
+    
+    @StreamListener(StreamChannels.TOOLS_FAILURE)
+    public void receiveToolFailure(WacodisJobFailed job) {
+        this.handler.publishWebSocket("/topic/wacodis.prod.tools.failure", job);
     }
     
     @StreamListener(StreamChannels.DATA_AVAILABLE)

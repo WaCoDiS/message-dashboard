@@ -28,6 +28,10 @@ spring:
           destination: wacodis.prod.tools.finished
           binder: wacodis_rabbit
           group: messageConsumers
+        tools-failure:
+          destination: wacodis.prod.tools.failure
+          binder: wacodis_rabbit
+          group: messageConsumers
         data-available:
           destination: wacodis.prod.data.available
           binder: wacodis_rabbit

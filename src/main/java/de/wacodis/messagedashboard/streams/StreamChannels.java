@@ -15,6 +15,7 @@ public interface StreamChannels {
     String JOBS_DELETION = "jobs-deletion";
     String TOOLS_EXECUTE = "tools-execute";
     String TOOLS_FINISHED = "tools-finished";
+    String TOOLS_FAILURE = "tools-failure";
     String DATA_AVAILABLE = "data-available";
     String DATA_ACCESSIBLE = "data-accessible";
  
@@ -32,6 +33,9 @@ public interface StreamChannels {
     
     @Input(TOOLS_FINISHED)
     SubscribableChannel receiveToolFinished();
+    
+    @Input(TOOLS_FAILURE)
+    SubscribableChannel receiveToolFailure();
     
     @Input(DATA_AVAILABLE)
     SubscribableChannel receiveDataAvailable();
