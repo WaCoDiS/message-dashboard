@@ -16,6 +16,10 @@ spring:
           destination: wacodis.prod.jobs.status
           binder: wacodis_rabbit
           group: messageConsumers
+        jobs-deletion:
+          destination: wacodis.prod.jobs.deleted
+          binder: wacodis_rabbit
+          group: messageConsumers
         tools-execute:
           destination: wacodis.prod.tools.execute
           binder: wacodis_rabbit

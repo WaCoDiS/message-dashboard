@@ -5,6 +5,7 @@ export const environment = {
   topics: [
     '/topic/wacodis.prod.jobs.new',
     '/topic/wacodis.prod.jobs.status',
+    '/topic/wacodis.prod.jobs.deleted',
     '/topic/wacodis.prod.tools.execute',
     '/topic/wacodis.prod.tools.finished',
     '/topic/wacodis.prod.data.available',

@@ -40,6 +40,11 @@ public class StreamBinder implements InitializingBean {
         this.handler.publishWebSocket("/topic/wacodis.prod.jobs.status", job);
     }
     
+    @StreamListener(StreamChannels.JOBS_DELETION)
+    public void receiveJobDeletion(WacodisJobDefinition job) {
+        this.handler.publishWebSocket("/topic/wacodis.prod.jobs.deleted", job);
+    }
+    
     @StreamListener(StreamChannels.TOOLS_EXECUTE)
     public void receiveToolExecuted(Object job) {
         this.handler.publishWebSocket("/topic/wacodis.prod.tools.execute", job);

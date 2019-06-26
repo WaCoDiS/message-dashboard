@@ -2,8 +2,6 @@
 package de.wacodis.messagedashboard.streams;
 
 import org.springframework.cloud.stream.annotation.Input;
-import org.springframework.cloud.stream.annotation.Output;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 
 /**
@@ -14,6 +12,7 @@ public interface StreamChannels {
     
     String JOBS_NEW = "jobs-new";
     String JOBS_STATUS = "jobs-status";
+    String JOBS_DELETION = "jobs-deletion";
     String TOOLS_EXECUTE = "tools-execute";
     String TOOLS_FINISHED = "tools-finished";
     String DATA_AVAILABLE = "data-available";
@@ -24,6 +23,9 @@ public interface StreamChannels {
  
     @Input(JOBS_STATUS)
     SubscribableChannel receiveJobStatus();
+    
+    @Input(JOBS_DELETION)
+    SubscribableChannel receiveJobDeletion();
     
     @Input(TOOLS_EXECUTE)
     SubscribableChannel receiveToolExecuted();
