@@ -12,9 +12,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * PostResource
+ * resource that can be fetched with a HTTP POST request
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2019-06-26T15:43:41.336+02:00[Europe/Berlin]")
+@ApiModel(description = "resource that can be fetched with a HTTP POST request")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-01-24T13:10:11.833+01:00[Europe/Berlin]")
 
 public class PostResource extends AbstractResource implements Serializable {
   private static final long serialVersionUID = 1L;
