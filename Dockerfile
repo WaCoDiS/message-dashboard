@@ -1,5 +1,5 @@
 # ---- Base Node for UI build ----
-FROM node:10.8 AS base-ui
+FROM node:13.8 AS base-ui
 
 # prepare the source files for build
 RUN mkdir /tmp/ui
@@ -31,7 +31,7 @@ RUN cd /tmp/message-dashboard && mvn clean install -DskipTests=true
 RUN bash -c 'find /tmp/message-dashboard/target -maxdepth 1 -size +1048576c | grep message-dashboard | xargs -I{} mv {} /app.jar'
 
 # now the runnable image
-FROM openjdk:8-jdk-alpine
+FROM adoptopenjdk/openjdk8:alpine
 
 # copy over the dist from the base build image
 COPY --from=base /app.jar /app.jar
