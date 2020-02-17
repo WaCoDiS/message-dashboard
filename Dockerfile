@@ -23,7 +23,7 @@ COPY . /tmp/message-dashboard
 COPY --from=base-ui /tmp/ui/dist/* /tmp/message-dashboard/src/main/resources/static
 
 # run maven
-RUN cd /tmp/message-dashboard && mvn clean install -DskipTests=true
+RUN cd /tmp/message-dashboard && mvn clean install -DskipTests=true -Dapp.finalName=message-dashboard
 
 # find the JAR file and move it
 RUN bash -c 'find /tmp/message-dashboard/target -maxdepth 1 -size +1048576c | grep message-dashboard | xargs -I{} mv {} /app.jar'
