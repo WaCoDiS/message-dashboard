@@ -1,5 +1,5 @@
 # ---- Base Node for UI build ----
-FROM node:13.8 AS base-ui
+FROM trion/ng-cli:8.3.25 AS base-ui
 
 # prepare the source files for build
 RUN mkdir /tmp/ui
@@ -8,8 +8,6 @@ RUN mkdir /tmp/ui
 COPY ./ui/package.json ./ui/package-lock.json /tmp/ui/
 # npm also allowed to run as root
 RUN cd /tmp/ui && npm install --unsafe-perm
-
-RUN npm install -g @angular/cli@7.3.8
 
 COPY ./ui/ /tmp/ui
 RUN cd /tmp/ui && ng build --prod --base-href /message-dashboard/

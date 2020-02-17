@@ -1,10 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Client, over, Message } from '@stomp/stompjs';
+import { Client, Message, over, StompSubscription } from '@stomp/stompjs';
 import { BehaviorSubject, Observable } from 'rxjs';
 import * as SockJS from 'sockjs-client';
 import { environment } from 'src/environments/environment';
 import { filter, first, switchMap } from 'rxjs/operators';
-import { Subscription } from 'stompjs';
 
 export enum SocketClientState {
   ATTEMPTING, CONNECTED
@@ -14,8 +13,9 @@ export enum SocketClientState {
   providedIn: 'root'
 })
 export class SocketClientService implements OnDestroy {
-  private client: Client;
+  
   private state: BehaviorSubject<SocketClientState>;
+  client: Client;
 
   static jsonHandler(message: Message): any {
     return JSON.parse(message.body);
@@ -28,6 +28,7 @@ export class SocketClientService implements OnDestroy {
   constructor() {
     this.client = over(new SockJS(environment.api));
     this.state = new BehaviorSubject<SocketClientState>(SocketClientState.ATTEMPTING);
+
     this.client.connect({}, () => {
       this.state.next(SocketClientState.CONNECTED);
     });
@@ -44,7 +45,7 @@ export class SocketClientService implements OnDestroy {
   onMessage(topic: string, handler = SocketClientService.jsonHandler): Observable<any> {
     return this.connect().pipe(first(), switchMap(client => {
       return new Observable<any>(observer => {
-        const subscription: Subscription = client.subscribe(topic, message => {
+        const subscription: StompSubscription = client.subscribe(topic, message => {
           observer.next(handler(message));
         });
         return () => client.unsubscribe(subscription.id);

@@ -21,7 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { HighlightModule } from 'ngx-highlightjs';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
  
 import json from 'highlight.js/lib/languages/json';
 
@@ -30,14 +30,16 @@ import { SocketClientService } from './socket-client.service';
 import { MessageViewComponent, FilteredTopicsPipe } from './message-view/message-view.component';
 import { HttpClientModule } from '@angular/common/http';
 
+
+
 /**
  * Import every language you wish to highlight here
  * NOTE: The name of each language must match the file name its imported from
  */
-export function hljsLanguages() {
-  return [
-    {name: 'json', func: json}
-  ];
+export function getHighlightLanguages() {
+  return {
+    json: () => import('highlight.js/lib/languages/json')
+  };
 }
 
 @NgModule({
@@ -65,12 +67,16 @@ export function hljsLanguages() {
     HttpClientModule,
     FormsModule,
     FlexLayoutModule,
-    HighlightModule.forRoot({
-      languages: hljsLanguages
-    })
+    HighlightModule
   ],
   providers: [
-    SocketClientService
+    SocketClientService,
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        languages: getHighlightLanguages()
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })
