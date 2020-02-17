@@ -9,7 +9,7 @@
     </parent>
     <groupId>de.wacodis</groupId>
     <artifactId>message-dashboard</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>WaCoDiS message dashboard</name>
     <description>Application for visualizing all messages in the WaCoDiS system</description>
 
