@@ -3,10 +3,10 @@ package de.wacodis.messagedashboard.streams;
 
 import de.wacodis.messagedashboard.NewMessageHandler;
 import de.wacodis.messagedashboard.model.AbstractDataEnvelope;
-import de.wacodis.messagedashboard.model.ProductDescription;
 import de.wacodis.messagedashboard.model.WacodisJobDefinition;
 import de.wacodis.messagedashboard.model.WacodisJobExecution;
 import de.wacodis.messagedashboard.model.WacodisJobFailed;
+import de.wacodis.messagedashboard.model.WacodisJobFinished;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -53,7 +53,7 @@ public class StreamBinder implements InitializingBean {
     }
     
     @StreamListener(StreamChannels.TOOLS_FINISHED)
-    public void receiveToolFinished(ProductDescription job) {
+    public void receiveToolFinished(WacodisJobFinished job) {
         this.handler.publishWebSocket("/topic/wacodis.prod.tools.finished", job);
     }
     
