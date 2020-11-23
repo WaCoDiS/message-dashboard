@@ -10,3 +10,4 @@ services:
     environment:
       - spring.rabbitmq.host=wacodis.demo.52north.org
       - spring.rabbitmq.password=wacojo2018
+      - PORT=9234

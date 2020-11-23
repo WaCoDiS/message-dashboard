@@ -34,6 +34,8 @@ FROM adoptopenjdk/openjdk8:alpine
 # copy over the dist from the base build image
 COPY --from=base /app.jar /app.jar
 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+COPY ./env.sh /env.sh
+
+ENTRYPOINT ["sh","-c","/env.sh"]
 
 EXPOSE 8080
