@@ -9,37 +9,37 @@ spring:
     stream:
       bindings:
         jobs-new:
-          destination: wacodis.prod.jobs.new
+          destination: wacodis.test.jobs.new
           binder: wacodis_rabbit
-          group: messageConsumers
+          group: dashboardConsumers
         jobs-status:
-          destination: wacodis.prod.jobs.status
+          destination: wacodis.test.jobs.status
           binder: wacodis_rabbit
-          group: messageConsumers
+          group: dashboardConsumers
         jobs-deletion:
-          destination: wacodis.prod.jobs.deleted
+          destination: wacodis.test.jobs.deleted
           binder: wacodis_rabbit
-          group: messageConsumers
+          group: dashboardConsumers
         tools-execute:
-          destination: wacodis.prod.tools.execute
+          destination: wacodis.test.tools.execute
           binder: wacodis_rabbit
-          group: messageConsumers
+          group: dashboardConsumers
         tools-finished:
-          destination: wacodis.prod.tools.finished
+          destination: wacodis.test.tools.finished
           binder: wacodis_rabbit
-          group: messageConsumers
+          group: dashboardConsumers
         tools-failure:
-          destination: wacodis.prod.tools.failure
+          destination: wacodis.test.tools.failure
           binder: wacodis_rabbit
-          group: messageConsumers
+          group: dashboardConsumers
         data-available:
-          destination: wacodis.prod.data.available
+          destination: wacodis.test.data.available
           binder: wacodis_rabbit
-          group: messageConsumers
+          group: dashboardConsumers
         data-accessible:
-          destination: wacodis.prod.data.accessible
+          destination: wacodis.test.data.accessible
           binder: wacodis_rabbit
-          group: messageConsumers
+          group: dashboardConsumers
       binders:
         wacodis_rabbit:
           type: rabbit
