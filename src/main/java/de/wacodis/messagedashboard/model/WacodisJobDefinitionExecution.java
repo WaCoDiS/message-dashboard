@@ -3,8 +3,10 @@ package de.wacodis.messagedashboard.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import de.wacodis.messagedashboard.model.AbstractWacodisJobExecutionEvent;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.joda.time.DateTime;
 import java.io.Serializable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -13,7 +15,7 @@ import javax.validation.constraints.*;
  * if present, this describe the execution pattern of a WacodisJobDefinition. if not present, the WacodisJobDefinition is treated as a one-time execution. Only one of the properties shall be provided. 
  */
 @ApiModel(description = "if present, this describe the execution pattern of a WacodisJobDefinition. if not present, the WacodisJobDefinition is treated as a one-time execution. Only one of the properties shall be provided. ")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-02-17T12:20:59.917+01:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-11-24T09:01:07.527850200+01:00[Europe/Berlin]")
 
 public class WacodisJobDefinitionExecution  implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -22,7 +24,10 @@ public class WacodisJobDefinitionExecution  implements Serializable {
   private String pattern = null;
 
   @JsonProperty("event")
-  private Object event = null;
+  private AbstractWacodisJobExecutionEvent event = null;
+
+  @JsonProperty("startAt")
+  private DateTime startAt = null;
 
   public WacodisJobDefinitionExecution pattern(String pattern) {
     this.pattern = pattern;
@@ -44,24 +49,46 @@ public class WacodisJobDefinitionExecution  implements Serializable {
     this.pattern = pattern;
   }
 
-  public WacodisJobDefinitionExecution event(Object event) {
+  public WacodisJobDefinitionExecution event(AbstractWacodisJobExecutionEvent event) {
     this.event = event;
     return this;
   }
 
   /**
-   * the execution is scheduled by the occurence of an event (e.g. new data available); WIP - format to be defined. 
+   * Get event
    * @return event
   **/
-  @ApiModelProperty(value = "the execution is scheduled by the occurence of an event (e.g. new data available); WIP - format to be defined. ")
+  @ApiModelProperty(value = "")
 
+  @Valid
 
-  public Object getEvent() {
+  public AbstractWacodisJobExecutionEvent getEvent() {
     return event;
   }
 
-  public void setEvent(Object event) {
+  public void setEvent(AbstractWacodisJobExecutionEvent event) {
     this.event = event;
+  }
+
+  public WacodisJobDefinitionExecution startAt(DateTime startAt) {
+    this.startAt = startAt;
+    return this;
+  }
+
+  /**
+   * date on which the wacodis job should be executed for the first time, null if wacodis job should be executed immediately 
+   * @return startAt
+  **/
+  @ApiModelProperty(value = "date on which the wacodis job should be executed for the first time, null if wacodis job should be executed immediately ")
+
+  @Valid
+
+  public DateTime getStartAt() {
+    return startAt;
+  }
+
+  public void setStartAt(DateTime startAt) {
+    this.startAt = startAt;
   }
 
 
@@ -75,12 +102,13 @@ public class WacodisJobDefinitionExecution  implements Serializable {
     }
     WacodisJobDefinitionExecution wacodisJobDefinitionExecution = (WacodisJobDefinitionExecution) o;
     return Objects.equals(this.pattern, wacodisJobDefinitionExecution.pattern) &&
-        Objects.equals(this.event, wacodisJobDefinitionExecution.event);
+        Objects.equals(this.event, wacodisJobDefinitionExecution.event) &&
+        Objects.equals(this.startAt, wacodisJobDefinitionExecution.startAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pattern, event);
+    return Objects.hash(pattern, event, startAt);
   }
 
   @Override
@@ -90,6 +118,7 @@ public class WacodisJobDefinitionExecution  implements Serializable {
     
     sb.append("    pattern: ").append(toIndentedString(pattern)).append("\n");
     sb.append("    event: ").append(toIndentedString(event)).append("\n");
+    sb.append("    startAt: ").append(toIndentedString(startAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }
