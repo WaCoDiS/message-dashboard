@@ -10,7 +10,7 @@ COPY ./ui/package.json ./ui/package-lock.json /tmp/ui/
 RUN cd /tmp/ui && npm install --unsafe-perm
 
 COPY ./ui/ /tmp/ui
-RUN cd /tmp/ui && ng build --prod --base-href /message-dashboard/
+RUN cd /tmp/ui && ng build --prod --base-href /
 
 # ---- Base maven ----
 FROM maven:3.5-jdk-8-slim AS base
