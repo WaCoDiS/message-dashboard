@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  api: '/message-dashboard/gs-guide-websocket',
-  archiveUrl: '/message-dashboard/archive',
+  api: '/gs-guide-websocket',
+  archiveUrl: '/archive',
   topics: [
     '/topic/wacodis.prod.jobs.new',
     '/topic/wacodis.prod.jobs.status',
