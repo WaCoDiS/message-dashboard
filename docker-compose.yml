@@ -7,7 +7,4 @@ services:
     ports:
       - 8080:80
     environment:
-      - spring.rabbitmq.host=localhost
-      - spring.rabbitmq.password=password
-      - spring.rabbitmq.username=user
       - PORT=80
