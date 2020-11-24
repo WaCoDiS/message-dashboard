@@ -7,14 +7,14 @@ export const environment = {
   api: 'http://localhost:8080/gs-guide-websocket',
   archiveUrl: 'http://localhost:8080/archive',
   topics: [
-    '/topic/wacodis.prod.jobs.new',
-    '/topic/wacodis.prod.jobs.status',
-    '/topic/wacodis.prod.jobs.deleted',
-    '/topic/wacodis.prod.tools.execute',
-    '/topic/wacodis.prod.tools.finished',
-    '/topic/wacodis.prod.tools.failure',
-    '/topic/wacodis.prod.data.available',
-    '/topic/wacodis.prod.data.accessible'
+    '/topic/wacodis.test.jobs.new',
+    '/topic/wacodis.test.jobs.status',
+    '/topic/wacodis.test.jobs.deleted',
+    '/topic/wacodis.test.tools.execute',
+    '/topic/wacodis.test.tools.finished',
+    '/topic/wacodis.test.tools.failure',
+    '/topic/wacodis.test.data.available',
+    '/topic/wacodis.test.data.accessible'
   ]
 };
 
