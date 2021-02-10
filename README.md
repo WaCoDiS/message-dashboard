@@ -101,16 +101,32 @@ In addition, some configuration parameters relate to different Spring Cloud comp
 and [Spring Cloud Config](https://docs.spring.io/spring-cloud-config/docs/current/reference/html/).
 
 To get started the most relevant configuration parameters are described below:
+* `spring.resources.static-locations`: Directory that contains the static web resources for the frontend
+* `spring.cloud.config.url`: URL that points to WaCoDiS Config Server
 * `spring.rabbitmq.host`: Name of the node running a RabbitMQ instance
 * `spring.rabbitmq.port`: RabbitMQ port to connect to
 * `spring.rabbitmq.username`: Username for RabbitMQ connections
 * `spring.rabbitmq.password`: Password for RabbitMQ connectio
-* `spring.cloud.stream.bindings.input-data-envelope.destination`: Topic used to listen for published DataEnvelope messages
-* `dataaccess.uri`: URL that points to a WaCoDiS DataAccess API instance
+* `spring.cloud.stream.bindings.jobs-new.destination`: Topic used to listen for WaCoDiS Job creation messages
+* `spring.cloud.stream.bindings.jobs-status.destination`: Topic used to listen for WaCoDiS Job status changed messages
+* `spring.cloud.stream.bindings.jobs-deletion.destination`: Topic used to listen for WaCoDiS Job deletion messages
+* `spring.cloud.stream.bindings.tools-execute.destination`: Topic used to listen for tool execution messages
+* `spring.cloud.stream.bindings.tools-finished.destination`: Topic used to listen for tool finished messages
+* `spring.cloud.stream.bindings.tools-failure.destination`: Topic used to listen for tool failure messages
+* `spring.cloud.stream.bindings.data-available.destination`: Topic used to listen for published DataEnvelope messages
+* `spring.cloud.stream.bindings.data-accessible.destination`: Topic used to listen for accessible DataEnvelope messages
+
+In addition, you have to adopt the environment files inside the _src/environments/_ folder to your runtime environment
+specific needs for  running the frontend properly:
+* `production`: Indicates whether the environment file should be used in production mode or not
+* `api`: WebSocket URL to connect to
+* `archiveUrl`: URL for consuming archived messages
+* `topics`: List of topics to consume from the WebSocket
  
 ## Deployment
 ### Dependencies
-TODO
+WaCoDiS Message Dashboard requires a running RabbitMQ instance for consuming messages. For starting a RabbitMQ instance
+as Docker container a _docker-compose.yml_ is provided at _./docker/rabbitmq_.
 
 ### Run with Maven
 Just start the application by running `mvn spring-boot:run` from the root of project. Make sure you have installed all 
