@@ -1,4 +1,5 @@
 wps-client.log
+src/main/resources/static/ui/*
 
 HELP.md
 /target/
