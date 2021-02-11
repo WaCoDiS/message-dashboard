@@ -67,7 +67,7 @@ The frontend component is implemented by the use of the web framework [Angular](
 
 ## Installation / Building Information
 ### Build from Source
-In order to build the WaCoDiS Metadata Connector from source _Java Development Kit_ (JDK) must be available. Data Access 
+In order to build WaCoDiS Message Dashboard from source _Java Development Kit_ (JDK) must be available. Data Access 
 is tested with Oracle JDK 8 and OpenJDK 8. Unless stated otherwise later JDK versions can be used. In addition [Apache Maven](https://maven.apache.org/), 
 [npm](https://www.npmjs.com/) and [Angular](https://angular.io/) must be available for building the application.  
 
@@ -185,7 +185,8 @@ TODO
 | Arne Vogt | 52° North GmbH | [arnevogt](https://github.com/arnevogt) |
 
 ## Contact
-TODO
+The WaCoDiS project is maintained by [52°North GmbH](https://52north.org/). If you have any questions about this or any
+other repository related to WaCoDiS, please contact wacodis-info@52north.org.
 
 ## Credits and Contributing Organizations
 - Department of Geodesy, Bochum University of Applied Sciences, Bochum
