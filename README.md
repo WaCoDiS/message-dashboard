@@ -134,37 +134,57 @@ dependencies with `mvn clean install` from the project root and bundled the fron
 [Build from Source section](#build-from-source).
 
 ### Run with Docker
-TODO
+For convenience, a _docker-compose.yml_ is provided for running the Metadata Connector as Docker container. Just, run 
+`docker-compose up` from the project root. The latest Docker image will be fetched from [Docker Hub](https://hub.docker.com/r/wacodis/message-dashboard).
+The _docker-compose.yml_ also contains the most important configuration parameters as environment variables. Feel free
+to adapt the parameters for your needs.
 
-### Run frontend on development server
-Run `ng serve --open` for a dev server and opening a web browser window displaying the UI on http://localhost:4200.
+### Run Frontend on Development Server
+If you wish to run the frontend standalone without the Spring Boot backend for development purpose, run `ng serve --open`
+for a dev server and opening a web browser window displaying the UI on http://localhost:4200.
 
 ## User Guide
-TODO
+WaCoDiS Message Dashboard is part of the great microservice-oriented WaCoDiS System with the scope to monitor the message
+flow between the main components. For this purpose it consumes asynchronous messages from a RabbitMQ message broker.
+For development or testing purposes you can publish messages in accordance to the [OpenAPI schema definitions](https://github.com/WaCoDiS/apis-and-workflows/tree/master/openapi)
+manually via AMQP. A lightweight AMQP publishing client can be found at https://github.com/WaCoDiS/Tools.
 
 ## Developer Information
 This section contains information for developers.
 
-### How to Contribute
-TODO
+### Developer Guidelines
+WaCoDiS Message Dashboard consumes various messages via AMQP. You will find the required model classes inside the
+`de.wacodis.messagedashboard.model` package. If the underlying schema of the messages changes, you need to update the
+model classes accordingly. 
+1. We strongly recommend generating the new model classes from an [OpenAPI definition](https://github.com/WaCoDiS/apis-and-workflows/tree/master/openapi).
+If not already done, first enhance the model schemas within the OpenAPI document.  
+2. The project provides Maven profiles for automatically generating model classes from an OpenAPI document. The
+_generate-models_ profile generates the models from a Maven artifact you first have to create for the [OpenAPI definition](https://github.com/WaCoDiS/apis-and-workflows/tree/master/openapi)
+project. In contrast, by using the _download-generate-models_ profile there is no need to create the artifact in beforehand,
+since the execution of this profile will download the latest OpenAPI definitions and then creates the models on top of it. 
+You can trigger the profiles by respectively running `mvn clean compile -Pgenerate-models` and `mvn clean compile -Pdownload-generate-models`.
+3. If you need to listen for additional topics you have to adjust the `StreamBinder` and `StreamChannels` classes within
+the `de.wacodis.messagedashboard` package as well as the `application.yml` and `environment.ts` files accordingly.
 
-### Pending developments
-TODO
+### How to contribute
+Feel free to implement missing features by creating a pull request. For any feature requests or found bugs, we kindly
+ask you to create an issue. 
 
 ### Branching
 The master branch provides sources for stable builds. The develop branch represents the latest (maybe unstable) state of
 development.
 
 ### License and Third Party Lib POM Plugins
-[optional]
+TODO
+
+## Contributing Developers
+|    Name   |   Organization    |    GitHub    |
+| :-------------: |:-------------:| :-----:|
+| Matthes Rieke | 52° North GmbH | [matthesrieke](https://github.com/matthesrieke) |
+| Sebastian Drost | 52° North GmbH | [SebaDro](https://github.com/SebaDro) |
 
 ## Contact
-|    Name   |   Organization    |    Mail    |
-| :-------------: |:-------------:| :-----:|
-| Sebastian Drost | Bochum University of Applied Sciences | sebastian.drost@hs-bochum.de |
-| Arne Vogt | Bochum University of Applied Sciences | arne.vogt@hs-bochum.de |
-| Andreas Wytzisk  | Bochum University of Applied Sciences | andreas.wytzisk@hs-bochum.de |
-| Matthes Rieke | 52° North GmbH | m.rieke@52north.org |
+TODO
 
 ## Credits and Contributing Organizations
 - Department of Geodesy, Bochum University of Applied Sciences, Bochum
