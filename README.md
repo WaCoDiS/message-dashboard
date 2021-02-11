@@ -182,6 +182,7 @@ TODO
 | :-------------: |:-------------:| :-----:|
 | Matthes Rieke | 52° North GmbH | [matthesrieke](https://github.com/matthesrieke) |
 | Sebastian Drost | 52° North GmbH | [SebaDro](https://github.com/SebaDro) |
+| Arne Vogt | 52° North GmbH | [arnevogt](https://github.com/arnevogt) |
 
 ## Contact
 TODO
