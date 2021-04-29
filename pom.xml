@@ -147,7 +147,7 @@
                     <plugin>
                         <groupId>org.openapitools</groupId>
                         <artifactId>openapi-generator-maven-plugin</artifactId>
-                        <version>3.3.0</version>
+                        <version>5.1.0</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -212,7 +212,7 @@
                     <plugin>
                         <groupId>org.openapitools</groupId>
                         <artifactId>openapi-generator-maven-plugin</artifactId>
-                        <version>3.3.0</version>
+                        <version>5.1.0</version>
                         <executions>
                             <execution>
                                 <goals>
