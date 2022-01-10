@@ -23,6 +23,7 @@
         <app.finalName>${project.artifactId}-${project.version}</app.finalName>
         <release-plugin.version>3.0.0-M1</release-plugin.version>
         <project.inceptionYear>2019</project.inceptionYear>
+        <log4j2.version>2.17.1</log4j2.version>
     </properties>
 
     <scm>
@@ -31,6 +32,15 @@
         <developerConnection>scm:git:ssh://git@github.com/WaCoDiS/message-dashboard.git</developerConnection>
         <tag>v1.0.0</tag>
     </scm>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
 
     <dependencies>
         <dependency>
